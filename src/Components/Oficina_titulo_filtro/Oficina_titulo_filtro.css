@@ -1,0 +1,50 @@
+
+.Oficina_titulo_filtro h2 {
+  font-family: Roobert TWHINT Bold;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.04em;
+  text-align: left;
+
+  color: #00113a;
+}
+.Oficina_titulo_filtro button {
+  background: #fff;
+  border-radius: 100px;
+  padding: 13px;
+  box-sizing: border-box;
+  color: #00113a;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  cursor: pointer;
+  border: none;
+}
+.Oficina_titulo_filtro button:hover {
+  opacity: 1;
+  background: rgba(0, 17, 58, 0.08);
+}
+
+/* ================================================================ */
+/* MOBILE */
+/* ================================================================ */
+@media (max-width: 555px) {
+  .Oficina_titulo_filtro {
+    padding: 0px 10px;
+  }
+}
+
+/* ================================================================ */
+/* DARK MODE */
+/* ================================================================ */
+
+.dark-mode .Oficina_titulo_filtro button {
+  background-color: #00113a10;
+}
+.dark-mode .Oficina_titulo_filtro button:hover {
+  background-color: #00113a15;
+}
