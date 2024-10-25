@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 
 const API_KEY = 'AIzaSyBs7NUNGoxc9piEik-7t8R0n6jBfdf8E38';
@@ -208,10 +208,10 @@ const MapComponent: React.FC = () => {
             zoom={14}
             onLoad={onMapLoad}
           >
-            {/* User location marker */}
+
             <Marker position={userLocation} />
 
-            {/* Car service markers */}
+
             {carServices.map((service) => (
               <Marker
                 key={service.id}
@@ -220,7 +220,7 @@ const MapComponent: React.FC = () => {
               />
             ))}
 
-            {/* Updated Info window for selected service */}
+
             {selectedService && (
               <InfoWindow
                 position={selectedService.location}
@@ -266,3 +266,4 @@ const MapComponent: React.FC = () => {
 };
 
 export default MapComponent;
+ */

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/* import React, { useState, useEffect } from "react";
 import {
   GoogleMap,
   LoadScript,
@@ -3957,10 +3957,8 @@ const MapComponent: React.FC = () => {
             zoom={14}
             onLoad={onMapLoad}
           >
-            {/* User location marker */}
             <Marker position={userLocation} />
 
-            {/* Car service markers */}
             {carServices.map((service) => (
               <Marker
                 key={service.name}
@@ -3969,7 +3967,6 @@ const MapComponent: React.FC = () => {
               />
             ))}
 
-            {/* Updated Info window for selected service */}
             {selectedService && (
               <InfoWindow
                 position={selectedService.location}
@@ -4021,3 +4018,4 @@ const MapComponent: React.FC = () => {
 };
 
 export default MapComponent;
+ */
