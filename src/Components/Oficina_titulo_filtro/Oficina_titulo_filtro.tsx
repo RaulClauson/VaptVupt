@@ -1,14 +1,21 @@
 import { IoFilterSharp } from "react-icons/io5";
-import './Oficina_titulo_filtro.css';
+import "./Oficina_titulo_filtro.css";
 
-
-const Oficina_titulo_filtro = () => {
-    return (
-        <>
-            <h2>Oficinas</h2>
-            <button type="button" aria-label="Abrir filtros"><IoFilterSharp /></button>
-        </>
-    )
+interface OficinaTituloFiltroProps {
+  searchTerm: string;
 }
 
-export default Oficina_titulo_filtro
+const Oficina_titulo_filtro: React.FC<OficinaTituloFiltroProps> = ({
+  searchTerm,
+}) => {
+  return (
+    <>
+      <h2>Resultados p/ {searchTerm}</h2>
+      <button type="button" aria-label="Abrir filtros">
+        <IoFilterSharp />
+      </button>
+    </>
+  );
+};
+
+export default Oficina_titulo_filtro;

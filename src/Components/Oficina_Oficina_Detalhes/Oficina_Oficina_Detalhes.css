@@ -171,8 +171,10 @@
 }
 .mais_infos a svg {
   flex-shrink: 0;
+  color: #2b66ff;
 }
 .mais_infos a div {
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -352,7 +354,6 @@
   }
   .servicos_detalhes .busca_servicos_detalhes {
     gap: 20px;
-    padding: 0px 0px 20px 0px;
   }
   .servicos_detalhes h3 {
     padding-left: 10px;
@@ -368,17 +369,14 @@
   }
 }
 @media (max-width: 555px) {
-  .oficina_info_titu h2{
+  .oficina_info_titu h2 {
     font-size: 22px;
   }
-  .oficina_infos p{
+  .oficina_infos p {
     font-size: 14px;
   }
   .maps {
     margin: 0px 15px 0px 15px;
-  }
-  .servicos_detalhes .busca_servicos_detalhes {
-    padding-bottom: 15px;
   }
   .Endereco {
     padding: 20px 25px;
@@ -410,4 +408,52 @@
     position: fixed;
     top: 0;
   }
+}
+
+.horario-funcionamento {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.horario-funcionamento > svg {
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+.abre_mais_info h4 {
+  font-family: Roobert TWHINT Bold;
+  margin: 10px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.horario-lista {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horario-lista li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.horario-lista .dia {
+  min-width: 100px;
+  color: #2b66ff;
+}
+
+.horario-lista .horario {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.horario-lista .horario svg {
+  margin-right: 5px;
 }

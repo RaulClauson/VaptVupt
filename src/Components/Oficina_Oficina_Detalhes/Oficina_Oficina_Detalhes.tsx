@@ -1,33 +1,42 @@
 import { useState } from "react";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { FaLocationArrow, FaLocationDot, FaStar } from "react-icons/fa6";
+import { FaLocationDot, FaStar } from "react-icons/fa6";
 import { HiMapPin } from "react-icons/hi2";
-import { MdOutlineAccessTimeFilled } from "react-icons/md";
+import { MdOutlineAccessTimeFilled, MdSchedule } from "react-icons/md";
 import { PiPasswordFill } from "react-icons/pi";
 import { RiArrowDropLeftLine } from "react-icons/ri";
 import "./Oficina_Oficina_Detalhes.css";
 
+interface CarService {
+  nome: string;
+  telefone?: string | null;
+  cep?: string | null;
+  horario_funcionamento?: string[] | null;
+  servicos?: string[] | null;
+  estrelas?: number | null;
+  avaliacoes?: number | null;
+  endereco: google.maps.LatLngLiteral;
+  endereco_original?: string | null;
+  imagem_url?: string | null;
+}
+
 interface Propriedades {
-  oficina: {
-    id: string;
-    nome: string;
-    imagem1: string;
-    localizacao: string;
-    referência: string;
-    telefone: string;
-    CEP: string;
-    atendimento: string;
-    oficinaServices: { services: string[] }[];
-  };
-  onOficinaClick: (nome: string) => void;
+  oficina: CarService;
+  onOficinaClick: (oficina: CarService) => void;
+  distancia?: number;
 }
 
 const Oficina_Oficina_Detalhes = (props: Propriedades) => {
+  const [abre_mais_info, setAbre_mais_info] = useState(false);
+
   const handleClick = () => {
-    props.onOficinaClick(props.oficina.nome);
+    props.onOficinaClick(props.oficina);
   };
 
-  const [abre_mais_info, setAbre_mais_info] = useState(false);
+  const formatOpeningHours = (hours: string) => {
+    const [day, time] = hours.split(": ");
+    return { day, time };
+  };
 
   return (
     <>
@@ -35,7 +44,9 @@ const Oficina_Oficina_Detalhes = (props: Propriedades) => {
         className="oficina_detalhes"
         aria-label={`Detalhes da oficina ${props.oficina.nome}`}
       >
-        <img src={props.oficina.imagem1} alt="" />
+        {props.oficina.imagem_url && (
+          <img src={props.oficina.imagem_url} alt="" />
+        )}
         <div className="oficina_detalhes_textos">
           <button onClick={handleClick} className="btn_voltar">
             <RiArrowDropLeftLine size={20} />
@@ -45,14 +56,19 @@ const Oficina_Oficina_Detalhes = (props: Propriedades) => {
             <div className="oficina_info_titu">
               <h2>{props.oficina.nome}</h2>
               <div>
-                <p>
-                  <FaStar color="#FF912B" size={13} />
-                  4,9 (201)
-                </p>
-                <p>
-                  <HiMapPin color="#2B66FF" size={13} />
-                  1,2 Km
-                </p>
+                {props.oficina.estrelas !== null && (
+                  <p>
+                    <FaStar color="#FF912B" size={13} />
+                    {props.oficina.estrelas?.toFixed(1) ?? "N/A"} (
+                    {props.oficina.avaliacoes ?? 0})
+                  </p>
+                )}
+                {props.distancia !== undefined && (
+                  <p>
+                    <HiMapPin color="#2B66FF" size={13} />
+                    {props.distancia.toFixed(1)} Km
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -65,57 +81,68 @@ const Oficina_Oficina_Detalhes = (props: Propriedades) => {
               className={abre_mais_info ? "abre_mais_info" : "fecha_mais_info"}
             >
               <a>
-                <FaLocationDot size={18} />
                 <div>
-                  Endereço
-                  {props.oficina.localizacao === "" ? (
+                  <h4>
+                    <FaLocationDot size={16} />
+                    Endereço
+                  </h4>
+                  {props.oficina.endereco_original ? (
+                    <p>{props.oficina.endereco_original}</p>
+                  ) : (
                     <p>Esta oficina não informou a localização</p>
-                  ) : (
-                    <p>{props.oficina.localizacao}</p>
                   )}
                 </div>
               </a>
               <a>
-                <FaLocationArrow size={18} />
                 <div>
-                  Referência
-                  {props.oficina.referência === "" ? (
-                    <p>Esta oficina não informou a referência</p>
-                  ) : (
-                    <p>{props.oficina.referência}</p>
-                  )}
-                </div>
-              </a>
-              <a>
-                <BsFillTelephoneFill size={18} />
-                <div>
-                  Telefone
-                  {props.oficina.telefone === "" ? (
-                    <p>Esta oficina não informou o telefone</p>
-                  ) : (
+                  <h4>
+                    <BsFillTelephoneFill size={16} />
+                    Telefone
+                  </h4>
+                  {props.oficina.telefone ? (
                     <p>{props.oficina.telefone}</p>
+                  ) : (
+                    <p>Esta oficina não informou o telefone</p>
                   )}
                 </div>
               </a>
               <a>
-                <PiPasswordFill size={18} />
                 <div>
-                  CEP
-                  {props.oficina.CEP === "" ? (
+                  <h4>
+                    <PiPasswordFill size={18} />
+                    CEP
+                  </h4>
+                  {props.oficina.cep ? (
+                    <p>{props.oficina.cep}</p>
+                  ) : (
                     <p>Esta oficina não informou o CEP</p>
-                  ) : (
-                    <p>{props.oficina.CEP}</p>
                   )}
                 </div>
               </a>
-              <a>
-                <MdOutlineAccessTimeFilled size={20} />
+              <a className="horario-funcionamento">
                 <div>
-                  Atendimento
-                  {props.oficina.atendimento === "" ? (
-                    <p>Esta oficina não informou o atendimento</p>
+                  <h4>
+                    <MdOutlineAccessTimeFilled size={18} />
+                    Horário de Funcionamento
+                  </h4>
+                  {props.oficina.horario_funcionamento ? (
+                    <ul className="horario-lista">
+                      {props.oficina.horario_funcionamento.map(
+                        (horario, index) => {
+                          const { day, time } = formatOpeningHours(horario);
+                          return (
+                            <li key={index}>
+                              <span className="dia">{day}</span>
+                              <span className="horario">
+                                <MdSchedule size={14} /> {time}
+                              </span>
+                            </li>
+                          );
+                        }
+                      )}
+                    </ul>
                   ) : (
-                    <p>{props.oficina.atendimento}</p>
+                    <p>Esta oficina não informou o horário de funcionamento</p>
                   )}
                 </div>
               </a>
@@ -125,21 +152,12 @@ const Oficina_Oficina_Detalhes = (props: Propriedades) => {
           <div className="servicos_detalhes">
             <div className="busca_servicos_detalhes">
               <h3>Serviços</h3>
-              <form action="" aria-label="Buscar serviços">
-                <label htmlFor="buscar_detalhes">
-                  <input
-                    type="text"
-                    placeholder="Buscar"
-                    id="buscar_detalhes"
-                  />
-                </label>
-              </form>
             </div>
             <div className="lista_servicos_detalhes">
               <ul role="list">
-                {props.oficina.oficinaServices
-                  ?.flatMap((oficinaServices) => oficinaServices.services)
-                  .map((services) => <li key={services}>{services}</li>) ?? []}
+                {props.oficina.servicos?.map((service) => (
+                  <li key={service}>{service}</li>
+                )) ?? []}
               </ul>
             </div>
           </div>
