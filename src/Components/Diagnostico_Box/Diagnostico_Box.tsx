@@ -8,6 +8,7 @@ import {
   Alignment,
 } from "@rive-app/react-canvas";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Diagnostico_Box = () => {
   const { rive, RiveComponent } = useRive({
@@ -116,11 +117,24 @@ const Diagnostico_Box = () => {
     };
   }, [clicouInputBoolean, deuEnterTrigger]);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const oficinaValue = sessionStorage.getItem("Oficina");
+      if (oficinaValue === "true") {
+        navigate("/oficinas");
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId); // Limpa o intervalo ao desmontar
+  }, [navigate]);
+
   return (
     <div id="Diagnostico_Box">
       <div>
         <Standard
-          typebot="my-typebot-ioxhymr"
+          typebot="vapt-vupt-sniy2bb"
           style={{ width: "100%", height: "100%" }}
         />
         <RiveComponent className="rive" />

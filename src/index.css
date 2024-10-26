@@ -92,7 +92,7 @@ section {
 .dentro_section {
   width: 100%;
   max-width: 1219px;
-  padding: 1vw 4vw;
+  padding: 13vh 4vw;
   box-sizing: border-box;
   overflow: auto;
 }
@@ -132,7 +132,6 @@ a {
 @media (max-width: 888px) {
   .dentro_section {
     width: 100%;
-    padding: 13vh 4vw;
     box-sizing: border-box;
   }
   section {

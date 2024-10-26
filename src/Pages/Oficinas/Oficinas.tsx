@@ -110,6 +110,7 @@ const darkMapStyle = [
   },
 ];
 const MapComponent: React.FC = () => {
+  sessionStorage.clear();
   const [userLocation, setUserLocation] =
     useState<google.maps.LatLngLiteral | null>(null);
   const [carServices, setCarServices] = useState<CarService[]>([]);
